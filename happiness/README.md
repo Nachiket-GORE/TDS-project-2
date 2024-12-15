@@ -142,7 +142,7 @@ Before performing any analysis, several preprocessing steps were conducted to cl
 To uncover patterns in the data, we performed K-Means clustering on the dataset. The number of clusters was set to 3 based on prior understanding.
 
 ### Clustering Results
-- **Cluster Centers**: [[0.0664523904697957, 1.322799239964082, 1.1473655500974262, 0.9214456493119506, 0.9256603349491285, 1.0592758193403473, 0.9871318717869703, -1.5416886783207258, 0.8060696592923025, -0.6978735962260308], [0.00872623710887073, 0.2886000805428054, 0.349250813879037, 0.4246885911677729, 0.392568357677881, 0.06700341010474575, -0.3489389007563439, 0.3515516125375219, 0.12450517084398358, -0.117858065035101], [-0.0421385012153896, -0.9912344271186891, -0.9910138327263128, -0.9871915899709945, -0.9465176096907767, -0.5760570824417155, 0.008932586502320917, 0.24264507127402177, -0.5358909013248582, 0.4773125302979255]]
+- **Cluster Centers**: [[0.0664523904697957, 1.322799239964082, 1.1473655500974262, 0.9214456493119507, 0.9256603349491285, 1.0592758193403473, 0.9871318717869703, -1.5416886783207255, 0.8060696592923025, -0.6978735962260308], [0.008726237108870728, 0.2886000805428054, 0.349250813879037, 0.4246885911677729, 0.39256835767788106, 0.06700341010474575, -0.3489389007563439, 0.3515516125375219, 0.12450517084398358, -0.117858065035101], [-0.0421385012153896, -0.9912344271186891, -0.9910138327263128, -0.9871915899709945, -0.9465176096907767, -0.5760570824417155, 0.008932586502320917, 0.2426450712740218, -0.5358909013248582, 0.4773125302979255]]
 - **Inertia (Sum of Squared Distances)**: 14635.997146158657
 ### Cluster Distribution
 The following plot shows the distribution of data points across the clusters:
@@ -162,42 +162,52 @@ Below is the detailed narrative generated from the dataset analysis:
 
 ### Insights
 ```
-# Dataset Analysis Summary
+# Dataset Analysis Overview
 
-## Overview of the Data
+## Dataset Summary
 
-The dataset consists of a total of **2363 rows** and **11 columns**, with each row representing a specific country and year, capturing various metrics related to quality of life and satisfaction. The columns in the dataset encompass:
+The dataset consists of **2,363 rows** and **11 columns**, capturing various indicators related to well-being across different countries and years. Each entry includes a variety of metrics, such as the Life Ladder score, GDP per capita, and several psychosocial factors. The data is free of missing values, making it robust for further analysis.
 
-- **Country name**: The name of the country.
-- **year**: The year of the corresponding data entry.
-- **Life Ladder**: A subjective measure of life satisfaction.
-- **Log GDP per capita**: The logarithm of GDP per capita, indicating economic performance.
-- **Social support**: A score representing the level of support that individuals perceive they receive from their social environment.
-- **Healthy life expectancy at birth**: An estimate of the average number of years a newborn is expected to live in full health.
-- **Freedom to make life choices**: A measure of the degree of individual freedom in decision-making.
-- **Generosity**: A measure indicating charitable behaviors and attitudes.
-- **Perceptions of corruption**: A score representing individuals� perceptions about corruption within their country.
-- **Positive affect**: A measure indicating positive feelings experienced by individuals.
-- **Negative affect**: A measure indicating negative feelings experienced by individuals.
+### Column Types
 
-### Data Integrity
+- **Country name:** (object) The name of the country.
+- **year:** (float64) The year of data collection, ranging from 2005 to 2023.
+- **Life Ladder:** (float64) A metric indicating overall subjective well-being.
+- **Log GDP per capita:** (float64) The natural logarithm of GDP per capita, reflecting economic performance.
+- **Social support:** (float64) An indicator of the perceived social support available to individuals.
+- **Healthy life expectancy at birth:** (float64) The average number of years a person can expect to live in good health.
+- **Freedom to make life choices:** (float64) A measure of perceived personal freedom.
+- **Generosity:** (float64) A measure of the degree of generosity in the population.
+- **Perceptions of corruption:** (float64) A measure of perceived levels of corruption in government and businesses.
+- **Positive affect:** (float64) A metric indicating the degree of positive emotions experienced.
+- **Negative affect:** (float64) A metric indicating the degree of negative emotions experienced.
 
-The analysis confirms that there are **no missing values** in any of the columns, ensuring the completeness and quality of the dataset for analysis purposes.
+### Missing Values
 
-## Key Findings
+The dataset contains **no missing values** in any of its columns, ensuring that all entries are complete and usable for analysis.
 
-### Descriptive Statistics
+## Numeric Summary
 
-1. **Year Range**:
-   - The dataset spans from the year **2005** to **2023**.
-   - The average year across the dataset is approximately **2015**.
+### Key Statistics
+The numeric summary provides insights into the distribution of the various indicators.
 
-2. **Quality of Life Metrics**:
-   - **Life Ladder**: The mean score is approximately **5.48**, with a range from **1.281** to **8.019**, indicating some variability in life satisfaction across countries.
-   - **Log GDP per Capita**: The mean is about **9.40**, reflecting significant economic diversity, with values ranging from **5.527** (lower GDP) to **11.676** (higher GDP).
-   - **Social Support**: On average, the score for social support is **0.810**, suggesting that most respondents feel adequately supported socially.
-   - **Healthy Life Expectancy**: The average is approximately **63.45 years**, with the lowest being **6.72 years**, suggesting disparity in health across countries.
-   - **Freedom to Make
+- **Year:** 
+  - Mean: 2014.76
+  - Range: 2005 - 2023
+
+- **Life Ladder:** 
+  - Mean: 5.48 (with a standard deviation of 1.13)
+  - Range: 1.28 - 8.02
+
+- **Log GDP per capita:** 
+  - Mean: 9.40 (standard deviation: 1.15)
+  - Range: 5.53 - 11.68
+
+- **Social Support:** 
+  - Mean: 0.81 (standard deviation: 0.12)
+  - Range: 0.23 - 0.99
+
+-
 ```
 
 ## Conclusion
@@ -208,4 +218,3 @@ The analysis provides a deep understanding of the dataset. Key findings include:
 - Visualizations helped in identifying relationships between variables and the distribution of data across clusters.
 
 Future improvements could involve experimenting with other clustering techniques or analyzing additional features in the dataset.
-
