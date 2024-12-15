@@ -220,7 +220,7 @@ Before performing any analysis, several preprocessing steps were conducted to cl
 To uncover patterns in the data, we performed K-Means clustering on the dataset. The number of clusters was set to 3 based on prior understanding.
 
 ### Clustering Results
-- **Cluster Centers**: [[0.19107257470099037, 1.5173153404883846, 1.4949433846839424, 1.4174677191722307, -0.2518105304587452, -0.09776414830605418, 0.19916566338164787, -0.03772053327748799, -0.13569191983594156, -0.12315099289382045, 0.14568699104847338, -0.07612007636653813, -0.11142547688526719, -0.14299738699530323, -0.12317134820991314, -0.10854426579153323], [-0.04682569081356039, -0.5187785107810665, -0.5114347235915098, -0.48557737669212314, 0.05564296077329143, 0.0331078826509241, -0.06546032182753492, 0.011051686800375934, -0.048143594161841295, -0.05335632457394288, -0.12581534534016062, -0.04515066055658332, -0.048420773685267926, -0.044065476816247326, -0.052952852971735374, -0.05266567720127041], [-1.717024219269797, -0.42167667930326547, -0.3880038886848189, -0.3096378273955798, 2.8084731310341438, 0.055786178325734535, -0.2923540791056933, 0.17641339258450525, 8.539159846488445, 8.618849552806484, 6.794325015988141, 6.421834697813655, 7.811234126235178, 8.3990753482812, 8.583198142190179, 8.103577022632027]]
+- **Cluster Centers**: [[0.19107257470099034, 1.5173153404883848, 1.4949433846839424, 1.4174677191722307, -0.25181053045874513, -0.09776414830605418, 0.19916566338164784, -0.03772053327748799, -0.13569191983594156, -0.12315099289382048, 0.14568699104847338, -0.07612007636653813, -0.11142547688526719, -0.14299738699530326, -0.12317134820991314, -0.10854426579153323], [-0.04682569081356039, -0.5187785107810665, -0.5114347235915099, -0.48557737669212314, 0.05564296077329143, 0.0331078826509241, -0.06546032182753492, 0.011051686800375935, -0.0481435941618413, -0.05335632457394289, -0.12581534534016062, -0.04515066055658331, -0.04842077368526793, -0.04406547681624733, -0.052952852971735354, -0.05266567720127039], [-1.717024219269797, -0.42167667930326547, -0.3880038886848189, -0.3096378273955798, 2.8084731310341438, 0.055786178325734535, -0.2923540791056933, 0.17641339258450525, 8.539159846488445, 8.618849552806484, 6.794325015988141, 6.421834697813655, 7.811234126235178, 8.3990753482812, 8.583198142190179, 8.103577022632027]]
 - **Inertia (Sum of Squared Distances)**: 94298.16420923788
 ### Cluster Distribution
 The following plot shows the distribution of data points across the clusters:
@@ -244,45 +244,38 @@ Below is the detailed narrative generated from the dataset analysis:
 
 ## Overview of the Data
 
-The dataset consists of **10,000 rows** and **23 columns**, containing detailed information about various books. The columns include numeric types (e.g., `book_id`, `ratings_count`) and categorical types (e.g., `title`, `authors`, `language_code`). 
+The dataset consists of 10,000 rows and 23 columns, providing a comprehensive overview of books, primarily sourced from Goodreads. The key attributes include various book identifiers, authors, publication details, ratings, and their respective count of ratings. Each column has been examined for data type integrity and missing values, with no missing entries found across the dataset.
 
-### Column Types
+### Data Structure
+- **Identifiers**: 
+  - `book_id`, `goodreads_book_id`, `best_book_id`, `work_id`
+- **Book Information**: 
+  - `title`, `original_title`, `authors`, `isbn`, `isbn13`
+- **Publication Information**:
+  - `original_publication_year`, `language_code`, `books_count`
+- **Rating Information**:
+  - `average_rating`, `ratings_count`, `work_ratings_count`, `work_text_reviews_count`
+  - Detailed ratings breakdown: `ratings_1`, `ratings_2`, `ratings_3`, `ratings_4`, `ratings_5`
+- **Image Links**: 
+  - `image_url`, `small_image_url`
 
-1. **Numeric Columns**:
-   - `book_id`, `goodreads_book_id`, `best_book_id`, `work_id`, `books_count`, `isbn13`, `original_publication_year`, `average_rating`, `ratings_count`, `work_ratings_count`, `work_text_reviews_count`, and ratings breakdown (1-5).
+### Data Types
+- The dataset contains a mix of numerical (`float64`) and categorical (`object`) data types. Notably, book identifiers and rating counts are represented as `float64`, while book information such as `title`, `authors`, and `isbn` are of type `object`.
 
-2. **Object Columns**:
-   - `isbn`, `authors`, `original_title`, `title`, `language_code`, `image_url`, and `small_image_url`.
-
-### Missing Values
-
-All columns in the dataset are complete, as there are **no missing values** reported across any of the 23 columns.
-
-### Numeric Summary Statistics
-
-A brief summary of key numeric statistics is provided below, highlighting the mean, standard deviation, and range for critical fields:
-
-- **Average Rating**: 
-  - Mean: **4.00** (SD: **0.25**); ratings range from **2.47** to **4.82**.
+### Key Statistics
+- **Numeric Summary**: 
+  - The average rating for books is approximately 4.00, indicating a generally positive reception.
+  - The mean count of ratings per book stands at around 54,001, suggesting substantial engagement by the user base on Goodreads.
   
-- **Ratings Count**: 
-  - Mean: **54,001** (SD: **157,370**); counts range from **2,716** to **4,780,653**.
-  
-- **Books Count**: 
-  - Mean: **75.71 books** (max: **3,455 books**).
-  
-- **Original Publication Year**: 
-  - Mean: **1982**; the earliest publication is from **-1750** and the latest is **2017**.
+  Here are a few selected summary statistics for numeric columns:
+  - **Total Books Count**: Mean = 75.71, Max = 3455
+  - **Original Publication Year**: Mean = 1982, with a range from -1750 (possibly an error) to 2017.
+  - **Average Rating**: Mean = 4.00, with ratings predominantly above 4.0.
 
 ## Key Findings
 
-1. **Ranging Ratings and Popularity**:
-   - The average rating of **4.00** indicates a general trend towards positively-rated books. The wide range in ratings count suggests variable popularity; some books are significantly more popular than others, with maximum ratings exceeding **4 million**.
-
-2. **Diversity in Publications**:
-   - The dataset contains books published over a span of several centuries, as indicated by the `original_publication_year`. The outlier of -1750 calls for further investigation to determine data collection practices.
-
-3. **
+1. **Distribution of Ratings**:
+   - The distribution of ratings has a significant skew, with most books receiving a higher number of 4 and 5-star ratings compared to lower ratings. The mean for ratings 5 is notably the highest at 23,
 ```
 
 ## Conclusion
@@ -293,4 +286,3 @@ The analysis provides a deep understanding of the dataset. Key findings include:
 - Visualizations helped in identifying relationships between variables and the distribution of data across clusters.
 
 Future improvements could involve experimenting with other clustering techniques or analyzing additional features in the dataset.
-
