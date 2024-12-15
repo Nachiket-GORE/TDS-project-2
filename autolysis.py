@@ -16,10 +16,10 @@ import requests
 import time
 
 
-# Load environment variables
+
 load_dotenv('file_name.env')
 
-# Proxy URL for OpenAI API through AI Proxy
+
 proxy_url = "https://aiproxy.sanand.workers.dev"
 try:
     response = requests.get(proxy_url)
@@ -44,11 +44,11 @@ class AutomatedAnalysis:
         openai.api_base = "https://aiproxy.sanand.workers.dev/openai/v1"
         openai.api_key = self.api_token
 
-        # Use the dataset filename (without extension) to create unique output filenames
+      
         self.dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        self.timestamp = time.strftime("%Y%m%d_%H%M%S")  # To add a timestamp to filenames
+        self.timestamp = time.strftime("%Y%m%d_%H%M%S")  
 
-        # Create a directory for the dataset if it doesn't exist
+     
         self.dataset_folder = os.path.join(os.getcwd(), self.dataset_name)
         if not os.path.exists(self.dataset_folder):
             os.makedirs(self.dataset_folder)
@@ -84,15 +84,15 @@ class AutomatedAnalysis:
         """
         Preprocess the dataset by handling missing values, data types, and special columns
         """
-        # Handle date columns
+     
         if 'date' in self.df.columns:
-            self.df['date'] = pd.to_datetime(self.df['date'], errors='coerce')  # Convert to datetime
+            self.df['date'] = pd.to_datetime(self.df['date'], errors='coerce') 
         
-        # Handle categorical columns (e.g., 'language', 'type')
+     
         categorical_cols = self.df.select_dtypes(include=['object']).columns
-        self.df[categorical_cols] = self.df[categorical_cols].fillna('Unknown')  # Replace NaNs with 'Unknown'
+        self.df[categorical_cols] = self.df[categorical_cols].fillna('Unknown')  
         
-        # Handle missing values for numeric columns
+      
         numeric_cols = self.df.select_dtypes(include=[np.number]).columns
         imputer = SimpleImputer(strategy='median')
         self.df[numeric_cols] = imputer.fit_transform(self.df[numeric_cols])
@@ -146,7 +146,7 @@ class AutomatedAnalysis:
 
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",  # Proxy-supported model
+                model="gpt-4o-mini", 
                 messages=[
                     {"role": "system", "content": "You are an expert data analyst."},
                     {"role": "user", "content": prompt}
@@ -154,13 +154,13 @@ class AutomatedAnalysis:
                 max_tokens=500
             )
 
-            # Extracting the generated narrative from the response
+        
             narrative = response['choices'][0]['message']['content'].strip()
 
             return narrative
 
         except Exception as e:
-            # Log the error and provide a fallback message
+         
             print(f"Error generating narrative: {e}")
             return "An error occurred while generating the narrative."
 
@@ -173,7 +173,7 @@ class AutomatedAnalysis:
             analysis_results (Dict[str, Any]): Analysis results
             narrative (str): Generated narrative
         """
-        # Save narrative to README.md with unique name in the dataset folder
+      
         try:
             readme_filename = os.path.join(self.dataset_folder, f"README.md")
             with open(readme_filename, "w") as f:
@@ -186,7 +186,7 @@ class AutomatedAnalysis:
         except Exception as e:
             print(f"Error saving {readme_filename}: {e}")
 
-        # Save visualizations with unique names in the dataset folder
+      
         self.save_visualizations()
 
     def perform_analysis(self):
@@ -205,7 +205,7 @@ class AutomatedAnalysis:
         Returns:
             Dict[str, Any]: Clustering results
         """
-        numeric_data = self.df.select_dtypes(include=[np.number])  # Only numeric columns
+        numeric_data = self.df.select_dtypes(include=[np.number]) 
         if numeric_data.empty:
             raise ValueError("No numeric columns found for clustering.")
 
@@ -226,14 +226,14 @@ class AutomatedAnalysis:
         """
         numeric_data = self.df.select_dtypes(include=[np.number])
 
-        # Correlation heatmap
+    
         plt.figure(figsize=(10, 8))
         sns.heatmap(numeric_data.corr(), annot=True, cmap="coolwarm")
         plt.title("Correlation Heatmap")
         heatmap_filename = os.path.join(self.dataset_folder, f"{self.dataset_name} correlation_heatmap.png")
         plt.savefig(heatmap_filename)
 
-        # Cluster distribution
+     
         plt.figure(figsize=(8, 6))
         sns.countplot(x='Cluster', data=self.df)
         plt.title("Cluster Distribution")
