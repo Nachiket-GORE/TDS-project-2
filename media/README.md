@@ -82,7 +82,7 @@ Before performing any analysis, several preprocessing steps were conducted to cl
 To uncover patterns in the data, we performed K-Means clustering on the dataset. The number of clusters was set to 3 based on prior understanding.
 
 ### Clustering Results
-- **Cluster Centers**: [[-0.06434370795764555, -0.0861062753292616, -0.17106239959567052], [-1.4439319768746028, -1.2683177907764138, -0.7004899986932007], [1.1765479048492549, 1.0840497493094705, 0.8099159619324358]]
+- **Cluster Centers**: [[-0.06434370795764555, -0.0861062753292616, -0.17106239959567054], [-1.4439319768746026, -1.2683177907764138, -0.7004899986932007], [1.1765479048492549, 1.0840497493094705, 0.8099159619324358]]
 - **Inertia (Sum of Squared Distances)**: 3053.031692241744
 ### Cluster Distribution
 The following plot shows the distribution of data points across the clusters:
@@ -102,7 +102,47 @@ Below is the detailed narrative generated from the dataset analysis:
 
 ### Insights
 ```
-An error occurred while generating the narrative.
+# Dataset Analysis Summary
+
+## Overview
+
+The dataset consists of 2,652 rows and 8 columns, detailing various attributes, including timestamped data, ratings, and reviews. The primary focus seems to be on evaluating different items based on their **overall** performance, **quality**, and **repeatability**, elaborated across different **languages** and **types**. The dataset features the following attributes:
+
+- **date**: The date when the review or rating was recorded.
+- **language**: The language of the review or rating.
+- **type**: The type/category of the reviewed item.
+- **title**: The title of the item being reviewed.
+- **by**: The author or reviewer of the item.
+- **overall**: A numerical rating for the item on a scale (likely 1 to 5).
+- **quality**: A numerical score representing the quality of the item.
+- **repeatability**: A metric assessing how often the item can be repeated or reproduced.
+
+## Key Findings
+
+### Data Completeness
+- **Missing Values**: The dataset contains a total of 99 missing entries in the **date** column, while other columns do not feature any missing data points. This indicates a relatively high level of completeness for most attributes, making the dataset robust for analysis.
+
+### Date Distribution
+- The **date** field spans from **June 18, 2005**, to **November 15, 2024**, with a mean date around **December 16, 2013**. The interquartile range shows that most records are concentrated between **March 24, 2008** and **May 24, 2019**.
+
+### Ratings Overview
+- **Overall Ratings**:
+  - Mean: **3.05**
+  - Minimum: **1.0**
+  - Maximum: **5.0**
+  - Distribution indicates most ratings fall around **3.0**, suggesting a tendency for average satisfaction.
+  
+- **Quality Ratings**:
+  - Mean: **3.21**
+  - Minimum: **1.0**
+  - Maximum: **5.0**
+  - Similar to overall ratings, the distribution suggests a tendency towards moderate quality, with an inclination beyond middle ground.
+
+- **Repeatability Ratings**:
+  - Mean: **1.49**
+  - Minimum: **1.0**
+  - Maximum: **3.0**
+  - The low average and maximum scores
 ```
 
 ## Conclusion
